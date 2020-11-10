@@ -9,11 +9,9 @@ plugins {
 }
 
 
-
 group = 'com.example'
 
 sourceCompatibility = '11'
-
 
 
 repositories {
@@ -21,7 +19,6 @@ repositories {
     mavenCentral()
 
 }
-
 
 
 dependencies {
@@ -35,7 +32,6 @@ dependencies {
     }
 
 }
-
 
 
 test {
