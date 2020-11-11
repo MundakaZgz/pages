@@ -10,4 +10,4 @@ kubectl apply -f deployment/mysql-secret.yaml
 kubectl apply -f deployment/mysql-service.yaml
 kubectl apply -f deployment/mysql-deployment.yaml
 kubectl apply -f deployment/flyway-configmap.yaml
-kubectl apply -f deployment/flyway-job.yaml
+kubectl apply -f deployment/flyway-configmap.yaml
