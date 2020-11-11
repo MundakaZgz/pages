@@ -17,7 +17,7 @@ spec:
         app: pages
     spec:
       containers:
-      - image: mundakazgz/pages:2.0
+      - image: mundakazgz/pages:3.0
         name: pages
         ports:
           - containerPort: 8080
