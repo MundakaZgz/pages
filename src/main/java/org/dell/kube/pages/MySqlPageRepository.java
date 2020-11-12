@@ -1,14 +1,18 @@
 package org.dell.kube.pages;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.util.List;
+
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
+
 @Repository
 public class MySqlPageRepository implements IPageRepository {
     private final JdbcTemplate jdbcTemplate;
@@ -19,6 +23,7 @@ public class MySqlPageRepository implements IPageRepository {
     @Override
     public Page create(Page page) {
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+
         jdbcTemplate.update(connection -> {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO pages (business_name, address, category_id, contact_number) " +
@@ -29,9 +34,12 @@ public class MySqlPageRepository implements IPageRepository {
             statement.setString(2, page.getAddress());
             statement.setLong(3,page.getCategoryId());
             statement.setString(4,page.getContactNumber());
+
             return statement;
         }, generatedKeyHolder);
+
         return read(generatedKeyHolder.getKey().longValue());
+
     }
     @Override
     public Page read(long id) {
@@ -40,10 +48,12 @@ public class MySqlPageRepository implements IPageRepository {
                 new Object[]{id},
                 extractor);
     }
+
     @Override
     public List<Page> list() {
         return jdbcTemplate.query("SELECT id, business_name, address, category_id, contact_number FROM pages", mapper);
     }
+
     @Override
     public Page update(Page page, long id) {
         jdbcTemplate.update("UPDATE pages " +
@@ -54,12 +64,15 @@ public class MySqlPageRepository implements IPageRepository {
                 page.getCategoryId(),
                 page.getContactNumber(),
                 id);
+
         return read(id);
     }
+
     @Override
     public void delete(long id) {
-        jdbcTemplate.update("DELETE FROM pages WHERE id = ?", id);
+      jdbcTemplate.update("DELETE FROM pages WHERE id = ?", id);
     }
+
     private final RowMapper<Page> mapper = (rs, rowNum) -> new Page(
             rs.getLong("id"),
             rs.getString("business_name"),
