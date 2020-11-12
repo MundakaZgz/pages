@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: resource-quota
+  namespace: dalston
+spec:
+  hard:
+    cpu: 2
+    memory: 8Gi
+    pods: 10
+
